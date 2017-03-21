@@ -1,4 +1,4 @@
-FROM sebastianhutter/ffmpeg:latest
+FROM sebastianhutter/ffmpeg
 
 # set workdir
 WORKDIR /
