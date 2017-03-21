@@ -1,16 +1,16 @@
-FROM sebastianhutter/ffmpeg
+FROM sebastianhutter/ffmpeg:latest
 
 # set workdir
 WORKDIR /
 
-# install requirements for sabnzbd and nzbtomedia
-RUN dnf install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm \
-  http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-23.noarch.rpm 
-
-RUN dnf install -y git gcc redhat-rpm-config python-devel libffi-devel openssl-devel curl \
-  python-pip python-yenc unrar unzip tar p7zip p7zip-plugins par2cmdline && \
-  pip install --upgrade pip && \
-  pip install --upgrade Cheetah pydbus pyOpenSSL j2cli
+# install requirements
+RUN apt-get update \
+  && apt-get install -y python python-pip curl unrar-free p7zip-full par2 git \
+     gcc libssl-dev libffi-dev python-dev \
+  && pip install --upgrade pip \
+  && pip install --upgrade appdirs cffi pyparsing Cheetah pydbus pyOpenSSL j2cli sabyenc \
+  && apt-get remove --purge -y gcc libssl-dev libffi-dev python-dev \
+  && rm -rf /var/lib/apt/lists/*
 
 # download sabnzbd and nzbtomedia
 RUN git clone https://github.com/sabnzbd/sabnzbd.git && \
