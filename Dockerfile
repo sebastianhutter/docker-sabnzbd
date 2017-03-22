@@ -4,8 +4,9 @@ FROM sebastianhutter/ffmpeg
 WORKDIR /
 
 # install requirements
-RUN apt-get update \
-  && apt-get install -y python python-pip curl unrar-free p7zip-full par2 git \
+RUN sed -i 's/jessie main/stable main contrib non-free/' /etc/apt/sources.list \
+  && apt-get update \
+  && apt-get install -y python python-pip curl unrar p7zip-full par2 git \
      gcc libssl-dev libffi-dev python-dev \
   && pip install --upgrade pip \
   && pip install --upgrade appdirs cffi pyparsing Cheetah pydbus pyOpenSSL j2cli sabyenc \
