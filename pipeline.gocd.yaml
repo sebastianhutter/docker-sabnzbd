@@ -17,9 +17,9 @@ pipelines:
           jobs:
             build:
               artifacts:
-               - image_version:
+               - build:
                    source: image_version
-               - image_name:
+               - build:
                    source: image_name
               tasks:
                - exec:
@@ -44,6 +44,10 @@ pipelines:
       build:
         pipeline: Build_sabnzbd
         stage: build
+    environment_variables:
+      RANCHER_URL: https://rancher.hutter.cloud:8080
+      # you can get the service id from the api view in rancher
+      SERVICE_NAME: Sabnzbd
     stages:
       - Deploy:
           jobs:
@@ -63,8 +67,8 @@ pipelines:
                   is_file: yes
                   source: image_name
                   destination: image_name
-               - exec:
-                  command: /bin/sh
-                  arguments:
-                   - echo $(cat image_name)
+               - script: |
+                   export image_version=$(cat image_version)
+                   export image_name=$(cat image_name)
+                   rancher_upgrade.sh ${SERVICE_NAME} ${image_name} ${image_version}
 
