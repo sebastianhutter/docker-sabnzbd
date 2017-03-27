@@ -38,6 +38,9 @@ pipelines:
                     - push_commit
   Deploy_sabnzbd:
     group: sabnzbd
+    materials:
+      repository:
+        git: git@github.com:sebastianhutter/docker-sabnzbd.git
     stages:
       - Deploy:
           jobs:
