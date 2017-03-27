@@ -47,6 +47,7 @@ pipelines:
             deploy:
               tasks:
                - fetch:
+                  pipeline: Build_sabnzbd
                   stage: build
                   job: build
                   is_file: yes
