@@ -59,14 +59,12 @@ pipelines:
                   job: build
                   is_file: yes
                   source: image_version
-                  destination: image_version
                - fetch:
                   pipeline: Build_sabnzbd
                   stage: build
                   job: build
                   is_file: yes
                   source: image_name
-                  destination: image_name
                - script: |
                    export image_version=$(cat image_version)
                    export image_name=$(cat image_name)
