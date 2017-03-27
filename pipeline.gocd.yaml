@@ -41,6 +41,7 @@ pipelines:
     materials:
       build:
         pipeline: Build_sabnzbd
+        stage: build
     stages:
       - Deploy:
           jobs:
