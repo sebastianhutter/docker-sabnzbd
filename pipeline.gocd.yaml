@@ -39,8 +39,8 @@ pipelines:
   Deploy_sabnzbd:
     group: sabnzbd
     materials:
-      repository:
-        git: git@github.com:sebastianhutter/docker-sabnzbd.git
+      build:
+        pipeline: Build_sabnzbd
     stages:
       - Deploy:
           jobs:
