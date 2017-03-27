@@ -13,6 +13,7 @@ endif
 build_commit:
 	docker build -t $(IMAGE_NAME):$(COMMIT_ID) .
 	echo $(COMMIT_ID) > image_version
+	echo $(IMAGE_NAME) > image_name
 
 # latest
 # set the latest tag for the image with the specified nextcloud version tag

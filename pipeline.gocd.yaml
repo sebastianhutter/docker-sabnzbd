@@ -17,8 +17,10 @@ pipelines:
           jobs:
             build:
               artifacts:
-               - build:
+               - image_version:
                    source: image_version
+               - image_name:
+                   source: image_name
               tasks:
                - exec:
                    command: make
@@ -54,8 +56,15 @@ pipelines:
                   is_file: yes
                   source: image_version
                   destination: image_version
+               - fetch:
+                  pipeline: Build_sabnzbd
+                  stage: build
+                  job: build
+                  is_file: yes
+                  source: image_name
+                  destination: image_name
                - exec:
-                  command: make
+                  command: /bin/sh
                   arguments:
-                   - deploy_commit
+                   - echo $(cat image_name)
 
